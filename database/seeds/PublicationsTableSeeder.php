@@ -15,7 +15,7 @@ class PublicationsTableSeeder extends Seeder
             'wall_id' => 1,
             'message' => 'Esta es mi mascota se llama Mia',
             'published' => date('Y-m-d H:i:s'),
-            'is_public' => 'si',
+            'is_public' => 'SI',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
 
@@ -25,7 +25,7 @@ class PublicationsTableSeeder extends Seeder
             'wall_id' => 2,
             'message' => 'Este es mi primera publicacion',
             'published' => date('Y-m-d H:i:s'),
-            'is_public' => 'no',
+            'is_public' => 'NO',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);

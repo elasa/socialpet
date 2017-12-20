@@ -18,7 +18,7 @@ class PetsTableSeeder extends Seeder
             'age' => 4,
             'color' => 'cafe',
             'description' => 'Perrita de casa',
-            'photo' => '/public/images/pets/mia.png',
+            'photo' => 'default_photo.jpg',
         ]);
 
         DB::table('pets')->insert([
@@ -28,7 +28,7 @@ class PetsTableSeeder extends Seeder
             'age' => rand(1,10),
             'color' => 'gris',
             'description' => str_random(50),
-            'photo' => '/public/images/pets/pepito.png',
+            'photo' => 'default_photo.jpg',
         ]);
     }
 }

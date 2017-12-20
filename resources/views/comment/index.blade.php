@@ -36,7 +36,6 @@
                                 <textarea name="message" cols="" rows="3" class="form-control" placeholder="Escribe un comentario aqui...">{{ old('message') }}</textarea>
                             </div>
                             <button type="submit" class="btn btn-primary">Comentar</button>
-                            <a href="/wall"><button type="button" class="btn btn-danger">Volver</button></a>
                         </form>
                         <br>
                         @foreach ($comments as  $comment)

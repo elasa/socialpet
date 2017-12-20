@@ -30,6 +30,7 @@ class PetController extends Controller
             'name' => 'required|string|max:255',
             'age' => 'numeric',
             'color' => 'string',
+            'photo' => 'image'
         ]);
 
         $pet = new Pet;
@@ -39,7 +40,7 @@ class PetController extends Controller
         $pet->age = $request->get('age');
         $pet->color = $request->get('color');
         $pet->description = $request->get('description');
-        $pet->photo = $request->get('photo');
+        $pet->photo = ( $request->file('photo')==null ) ? "default_photo.jpg" : $request->file('photo')->store('public');
         $pet->save();
         
         session()->flash('message','Mascota creada correctamente!');
@@ -67,7 +68,8 @@ class PetController extends Controller
         $pet->age = $request->get('age');
         $pet->color = $request->get('color');
         $pet->description = $request->get('description');
-        $pet->photo = $request->get('photo');
+        //$pet->photo = $request->get('photo');
+        $pet->photo = ( $request->file('photo')==null ) ? $pet->photo : $request->file('photo')->store('public');
         $pet->save();
 
         session()->flash('message','Su mascota: '.$pet->name.' ha sido mdificada correctamente!');

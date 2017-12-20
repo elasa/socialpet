@@ -16,14 +16,14 @@ class CreatePetsTable extends Migration
         Schema::create('pets', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');;
             $table->integer('type_id')->unsigned();
             $table->foreign('type_id')->references('id')->on('types');
             $table->string('name');
             $table->integer('age')->nullable();
             $table->string('color')->nullable();
             $table->text('description')->nullable();
-            $table->string('photo')->nullable();
+            $table->string('photo')->default("default_photo.jpg")->nullable();
             $table->timestamps();
         });
     }

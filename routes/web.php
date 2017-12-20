@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-	return view('welcome');
-});
+// Route::get('/', function () {
+// 	return view('welcome');
+// });
 
 Auth::routes();
 
@@ -34,8 +34,12 @@ Route::middleware(['user'])->group(function () {
 	Route::resource('/pets', 'PetController');
 
 	Route::get('/wall', 'WallController@index');
+	Route::get('/wall/{id}', 'WallController@publication')->name('wall.id');
+	Route::post('/main', 'MainController@store')->name('main.store');
 	Route::resource('/publications', 'PublicationController');
 	Route::resource('/comments', 'CommentController');
+	Route::resource('/profile', 'ProfileController');
+	Route::resource('/', 'MainController');
 //Route::post('comments/{comment}', 'CommentController@show')->name('comments.show');
 
 

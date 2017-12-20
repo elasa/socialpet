@@ -16,14 +16,12 @@ class WallController extends Controller
 
     	$user = Auth::user()->name;
         $avatar = Auth::user()->avatar;
-
-    	//$publications = Auth::user()->wall->publications;
-
+        $pets = Auth::user()->pets;
 
     	$id = Wall::select('id')->where('user_id',Auth::id())->get();
     	$publications = Publication::orderBy('id','DESC')->where('wall_id',$id[0]->id)->get();
 
-    	$public_post = Publication::orderBy('id','DESC')->where('wall_id','<>',$id[0]->id)->where('is_public','si')->get();
+    	//$public_post = Publication::orderBy('id','DESC')->where('wall_id','<>',$id[0]->id)->where('is_public','SI')->get();
 
     	$user_names = User::join('walls', 'users.id', '=', 'walls.user_id')
             ->join('publications', 'walls.id', '=', 'publications.wall_id')
@@ -31,8 +29,18 @@ class WallController extends Controller
             ->get();
 
 
-    	return view('wall.index', compact('user','avatar','publications', 'public_post','user_names','comments_count'));
+    	return view('wall.index', compact('user','avatar','publications', 'public_post','user_names','comments_count','pets'));
 
     }
+
+    public function publication($id){
+
+        Publication::where('id', $id)
+            ->update(['is_public' => 'SI']);
+
+        return redirect('/');
+    }
+
+    
 
 }

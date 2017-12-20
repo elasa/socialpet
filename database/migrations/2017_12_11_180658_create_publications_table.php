@@ -19,7 +19,7 @@ class CreatePublicationsTable extends Migration
             $table->foreign('wall_id')->references('id')->on('walls')->onDelete('cascade');
             $table->text('message')->nullable();
             $table->dateTime('published');
-            $table->enum('is_public', ['si', 'no'])->default('si')->nullable();
+            $table->enum('is_public', ['SI', 'NO'])->default('SI')->nullable();
             $table->timestamps();
         });
     }

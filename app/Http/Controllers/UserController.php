@@ -44,7 +44,6 @@ class UserController extends Controller
         $user->role_id = $request->get('role_id');
         $user->email = $request->get('email');
         $user->password = bcrypt($request->get('password'));
-
         $user->avatar = ( $request->file('avatar')==null ) ? "default_avatar.jpg" : $request->file('avatar')->store('public');
 
         $user->remember_token = str_random(60);

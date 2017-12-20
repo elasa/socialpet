@@ -8,7 +8,7 @@
                 <div class="panel-heading">El Muro</div><br>
                 <p>&nbsp;&nbsp;&nbsp;&nbsp;
                     <img width="32px" height="32px" src="{{ Storage::url($avatar) }}" alt="">
-                    <b>{{ $user }}</b> de SocialPet   </p>
+                    <b>{{ $user }}</b>
                 <div class="panel-body">
                     @if (session('status'))
                     <div class="alert alert-success">
@@ -16,8 +16,6 @@
                     </div>
                     @endif
                     <div class="panel panel-info">
-                        <div class="panel-heading">Publicaciones</div>
-
                         <form action="{{ route('publications.store') }}" method="POST">
                             {{ csrf_field() }}
                             <div class="form-group">
@@ -25,11 +23,11 @@
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="is_public"  value="no" checked>
+                                    <input type="radio" name="is_public"  value="NO" checked>
                                     No Publico
                                 </label>
                                 <label>
-                                    <input type="radio" name="is_public"  value="si">
+                                    <input type="radio" name="is_public"  value="SI">
                                     Publico
                                 </label>
                             </div>
@@ -55,42 +53,18 @@
                                                 @else
                                                 {{ App\Wall::comments_count($publication->id) }} comentarios    
                                                 @endif
+                                                <a href="{{ route('wall.id', $publication->id ) }}" class="pull-right">
+
+                                                    @if ($publication->is_public=="SI")
+                                                        publicado
+                                                    @else
+                                                        publicar
+                                                    @endif  
+                                                </a>
                                             </a>
                                         </a>
                                     </div>
                                 @endif
-                            @endforeach
-                            Lo que comentan mis amigos
-                            @foreach ($public_post as $post)
-                                @foreach ($user_names as $u)
-                                    @if ($post->wall_id == $u->wall_id)
-                                        @php
-                                            $user_post = $u->name;
-                                            $avatar_post = $u->avatar;
-                                        @endphp
-                                    @endif   
-                                @endforeach
-                                    
-                            <div class="list-group">
-                                <a href="#" class="list-group-item ">
-                                    <h5 class="list-group-item-heading"> 
-                                        <img width="32px" height="32px" src="{{ Storage::url($avatar_post) }}">  
-                                         {{ $user_post }}
-                                    </h5>
-                                    <p class="list-group-item-text">{{ $post->message }}</p>
-                                    <p class="list-group-item-text">{{ $post->created_at->diffForHumans() }}</p>
-                                    <a href="{{ route('comments.show', $post->id ) }}">
-
-                                        @if (App\Wall::comments_count($post->id) == 0)
-                                            comentar
-                                        @elseif(App\Wall::comments_count($post->id) == 1)
-                                            {{ App\Wall::comments_count($post->id) }} comentario
-                                        @else
-                                            {{ App\Wall::comments_count($post->id) }} comentarios    
-                                        @endif
-                                    </a>
-                                </a>
-                            </div>
                             @endforeach
                         </div>
                     </div>
@@ -106,9 +80,12 @@
                     <ul class="media-list">
                         <li class="media">
                             <div class="pull-left">
-                                <a href="#">
-                                    <img width="98" height="98" src="{{ Storage::url($avatar_post) }}">
+                                @foreach ($pets as $pet)
+                                    <a href="#">
+                                    <img width="98" height="98" src="{{ Storage::url($pet->photo) }}">
                                 </a>
+                                @endforeach
+                                
                             </div>
                         </li>
                     </ul>
