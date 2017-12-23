@@ -36,14 +36,14 @@ return [
     ],
 
     'facebook' => [
-    'client_id' => env('FACEBOOK_ID'),         // Your GitHub Client ID
-    'client_secret' => env('FACEBOOK_SECRET'), // Your GitHub Client Secret
+    'client_id' => env('FACEBOOK_ID'),         // Your facebook Client ID
+    'client_secret' => env('FACEBOOK_SECRET'), // Your facebook Client Secret
     'redirect' => 'http://pet.test/login/facebook/callback',
     ],
 
     'twitter' => [
-    'client_id' => env('TWITTER_ID'),         // Your GitHub Client ID
-    'client_secret' => env('TWITTER_SECRET'), // Your GitHub Client Secret
+    'client_id' => env('TWITTER_ID'),         // Your twitter Client ID
+    'client_secret' => env('TWITTER_SECRET'), // Your twitter Client Secret
     'redirect' => 'http://pet.test/login/twitter/callback',
     ],
 
