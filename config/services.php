@@ -36,14 +36,14 @@ return [
     ],
 
     'facebook' => [
-    'client_id' => '227946631080342',         // Your GitHub Client ID
-    'client_secret' => '3cf0d6de5ad08db7e613c9d9b142e3ef', // Your GitHub Client Secret
+    'client_id' => env('FACEBOOK_ID'),         // Your GitHub Client ID
+    'client_secret' => env('FACEBOOK_SECRET'), // Your GitHub Client Secret
     'redirect' => 'http://pet.test/login/facebook/callback',
     ],
 
     'twitter' => [
-    'client_id' => '0ETZ4R8VrVY6LwwfqZtYS37JC',         // Your GitHub Client ID
-    'client_secret' => 'gM1Wy5fAppzuBswvMgFpSEdqaSQt2emK5bdeInMy38aRvEL5lI', // Your GitHub Client Secret
+    'client_id' => env('TWITTER_ID'),         // Your GitHub Client ID
+    'client_secret' => env('TWITTER_SECRET'), // Your GitHub Client Secret
     'redirect' => 'http://pet.test/login/twitter/callback',
     ],
 
