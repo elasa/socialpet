@@ -41,7 +41,12 @@
                                         <a href="#" class="list-group-item "> 
                                             <h5 class="list-group-item-heading">
                                                 <img width="32px" height="32px" src="{{ Storage::url($avatar) }}"> 
-                                                {{ $user }}
+
+                                                @if ($user ==  null)
+                                                    {{ $email }}
+                                                @else
+                                                    {{ $user }}
+                                                @endif
                                             </h5>
                                             <p class="list-group-item-text">{{ $publication->message }}</p>
                                             <p class="list-group-item-text">{{ $publication->created_at->diffForHumans() }}</p>

@@ -15,6 +15,7 @@ class WallController extends Controller
     public function index(){
 
     	$user = Auth::user()->name;
+        $email = Auth::user()->email;
         $avatar = Auth::user()->avatar;
         $pets = Auth::user()->pets;
 
@@ -29,7 +30,7 @@ class WallController extends Controller
             ->get();
 
 
-    	return view('wall.index', compact('user','avatar','publications', 'public_post','user_names','comments_count','pets'));
+    	return view('wall.index', compact('user','email','avatar','publications', 'public_post','user_names','comments_count','pets'));
 
     }
 
