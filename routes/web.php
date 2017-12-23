@@ -42,9 +42,11 @@ Route::middleware(['user'])->group(function () {
 	Route::resource('/', 'MainController');
 //Route::post('comments/{comment}', 'CommentController@show')->name('comments.show');
 
-
-
 });
+
+// Routes login social network
+Route::get('login/{provider}', 'LoginController@redirectToProvider');
+Route::get('login/{provider}/callback', 'LoginController@handleProviderCallback');
 
 
 

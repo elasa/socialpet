@@ -62,4 +62,24 @@ class User extends Authenticatable
 
         return $this->hasMany(Comment::class);
     }
+
+    public function socialProviders(){
+
+        return $this->hasMany(SocialProvider::class);
+    }
+
+    public static function emailExiste($email)
+    {
+        $exite = User::where('email',$email)->first();
+
+        if($exite)
+            return true;
+        else
+            return false;
+
+    }
+
+
+
+
 }

@@ -65,15 +65,6 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
 
-        
-
-        // crea primera publicacion del usuario
-        // $publicacion = new Publication;
-
-        // $publicacion->wall_id = 4;
-        // $publicacion->message = 'Esta es mi primera publicacion que debo ocultar';
-        // $publicacion->published = date('Y-m-d H:i:s');
-        // $publicacion->is_public = 'no';
 
         return $user = User::create([
             'name' => $data['name'],
