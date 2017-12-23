@@ -35,6 +35,7 @@
                                     @if ($post->wall_id == $u->wall_id)
                                         @php
                                             $user_post = $u->name;
+                                            $email_post = $u->email;
                                             $avatar_post = $u->avatar;
                                         @endphp
                                     @endif   
@@ -43,7 +44,12 @@
                                 <a href="#" class="list-group-item ">
                                     <h5 class="list-group-item-heading"> 
                                         <img width="32px" height="32px" src="{{ Storage::url($avatar_post) }}">  
-                                         {{ $user_post }}
+
+                                        @if ($user_post==null)
+                                            {{ $email_post }}
+                                        @else
+                                            {{ $user_post }}
+                                        @endif
                                     </h5>
                                     <p class="list-group-item-text">{{ $post->message }}</p>
                                     <p class="list-group-item-text">{{ $post->created_at->diffForHumans() }}</p>

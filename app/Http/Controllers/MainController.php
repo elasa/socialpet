@@ -29,7 +29,7 @@ class MainController extends Controller
 
         $user_names = User::join('walls', 'users.id', '=', 'walls.user_id')
             ->join('publications', 'walls.id', '=', 'publications.wall_id')
-            ->select('users.id','users.name','users.avatar','publications.wall_id')
+            ->select('users.id','users.name','users.email','users.avatar','publications.wall_id')
             ->get();
 
 
