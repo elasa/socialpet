@@ -2,4 +2,4 @@
 
 ## License
 
-Proyecto bajo licencia [MIT license](http://opensource.org/licenses/MIT).
+[MIT license](http://opensource.org/licenses/MIT).
