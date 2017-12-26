@@ -47,4 +47,16 @@ return [
     'redirect' => 'http://pet.test/login/twitter/callback',
     ],
 
+    'github' => [
+    'client_id' => env('GITHUB_ID'),         // Your github Client ID
+    'client_secret' => env('GITHUB_SECRET'), // Your github Client Secret
+    'redirect' => 'http://pet.test/login/github/callback',
+    ],
+
+    'google' => [
+    'client_id' => env('GOOGLE_ID'),         // Your github Client ID
+    'client_secret' => env('GOOGLE_SECRET'), // Your github Client Secret
+    'redirect' => 'http://pet.test/login/google/callback',
+    ],
+
 ];

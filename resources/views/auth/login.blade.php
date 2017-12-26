@@ -67,11 +67,18 @@
                                 <a class="btn btn-link" href="{{ route('password.request') }}">
                                     ¿Olvidó su contraseña?
                                 </a>
+                                <br><br>
                                 <a class="btn btn-link" href="login/facebook">
                                    <i class="fa fa-facebook fa-3x" aria-hidden="true"></i>
                                 </a>
                                 <a class="btn btn-link" href="login/twitter">
                                     <i class="fa fa-twitter fa-3x" aria-hidden="true"></i>
+                                </a>
+                                <a class="btn btn-link" href="login/google">
+                                    <i class="fa fa-google fa-3x" aria-hidden="true"></i>
+                                </a>
+                                <a class="btn btn-link" href="login/github">
+                                    <i class="fa fa-github fa-3x" aria-hidden="true"></i>
                                 </a>
                             </div>
                         </div>
