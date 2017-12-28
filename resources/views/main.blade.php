@@ -7,7 +7,13 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">Inicio</div><br>
                 <p>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <img width="32px" height="32px" src="{{ Storage::url($avatar) }}" alt="">
+                    {{-- <img width="32px" height="32px" src="{{ Storage::url($avatar) }}" alt=""> --}}
+                    @if (starts_with(Auth::user()->avatar, 'http://') || starts_with(Auth::user()->avatar, 'https://'))   
+                        <img width="32px" height="32px" src="{{ Auth::user()->avatar }}">
+                    @else
+                        <img width="32px" height="32px" src="{{ Storage::url(Auth::user()->avatar) }}">
+                    @endif
+
                     <b>{{ $user }}</b>
                 <div class="panel-body">
                     @if (session('status'))
@@ -24,10 +30,38 @@
                             <button type="submit" class="btn btn-primary">Publicar</button>
                             <a href="/"><button type="button" class="btn btn-danger">Cancelar</button></a>
                         </form>
-                        <div class="panel-body"> 
-                            Lo que comentan mis amigos
-
-                            @php
+                        <br>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Lo que comentan mis amigos</div>
+                            <div class="panel-body">
+                                @foreach ($posts as $post)
+                                    <a href="#" class="list-group-item ">
+                                        @if (starts_with($post->avatar, 'http://') || starts_with($post->avatar, 'https://'))   
+                                        <img width="32px" height="32px" src="{{ $post->avatar }}">
+                                        @else
+                                        <img width="32px" height="32px" src="{{ Storage::url($post->avatar) }}">
+                                        @endif 
+                                        {{ $post->name }}
+                                        <p class="list-group-item-text">{{ $post->message }}</p>
+                                        <p class="list-group-item-text">{{ $post->created_at->diffForHumans() }}</p>
+                                        <a href="{{ route('comments.show', $post->id ) }}">
+                                            @if (App\Wall::comments_count($post->id) == 0)
+                                                comentar
+                                            @elseif(App\Wall::comments_count($post->id) == 1)
+                                                {{ App\Wall::comments_count($post->id) }} comentario
+                                            @else
+                                                {{ App\Wall::comments_count($post->id) }} comentarios    
+                                            @endif
+                                        </a>
+                                    </a>    
+                                @endforeach
+                            </div>
+                        </div>
+                        
+                                    
+                           {{--  {{ dd($users[0]->wall->publications) }} --}}
+                        
+                            {{-- @php
                                 $avatar_post = "";
                             @endphp
                             @foreach ($public_post as $post)
@@ -43,7 +77,11 @@
                             <div class="list-group">
                                 <a href="#" class="list-group-item ">
                                     <h5 class="list-group-item-heading"> 
-                                        <img width="32px" height="32px" src="{{ Storage::url($avatar_post) }}">  
+                                        @if (starts_with($avatar_post, 'http://') || starts_with($avatar_post, 'https://'))   
+                                            <img width="32px" height="32px" src="{{ $avatar_post }}">
+                                        @else
+                                            <img width="32px" height="32px" src="{{ Storage::url($avatar_post) }}">
+                                        @endif  
 
                                         @if ($user_post==null)
                                             {{ $email_post }}
@@ -65,7 +103,7 @@
                                     </a>
                                 </a>
                             </div>
-                            @endforeach
+                            @endforeach --}}
                         </div>
                     </div>
                 </div>

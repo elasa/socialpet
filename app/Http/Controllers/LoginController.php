@@ -36,14 +36,14 @@ class LoginController extends Controller
     	$socialProvider = SocialProvider::where('provider_id',$socialUser->getId())->first();
 
 
-    	if ($socialProvider == null) {
+    	if (true) {
     		
     		//create a new user and provider
 
     		$user = User::firstOrCreate(
 
     			['email' => $socialUser->getEmail()],
-    			['name ' => $socialUser->getName()]
+    			['name' => $socialUser->getName(),'avatar' => $socialUser->getAvatar()]
     		);
 
     		$user->socialProviders()->create(

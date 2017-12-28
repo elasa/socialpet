@@ -9,14 +9,28 @@ use App\User;
 use App\Wall;
 use App\Publication;
 use App\Comment;
+use Socialite;
 
 class MainController extends Controller
 {
     public function index(){
 
         $user = Auth::user()->name;
-        $avatar = Auth::user()->avatar;
         $pets = Auth::user()->pets;
+
+        //$users = User::all();
+
+        $posts = Publication::join('walls', 'walls.id', '=', 'publications.wall_id')
+            ->join('users', 'users.id', '=', 'walls.user_id')
+            ->select('users.id','users.name','users.avatar','publications.id','publications.message', 'publications.created_at')
+            ->orderBy('publications.id','DESC')->get();
+        /*
+            SELECT users.name, publications.id, publications.message 
+            FROM publications
+            INNER JOIN walls on walls.id = publications.wall_id
+            INNER JOIN users on users.id = walls.user_id
+            ORDER BY publications.id DESC
+        */
 
 
         //$publications = Auth::user()->wall->publications;
@@ -33,7 +47,7 @@ class MainController extends Controller
             ->get();
 
 
-        return view('main', compact('user','avatar','publications', 'public_post','user_names','comments_count','pets'));
+        return view('main', compact('posts','users','user','avatar','publications', 'public_post','user_names','comments_count','pets'));
 
     }
 

@@ -40,14 +40,11 @@
 
                                 <ul class="dropdown-menu">
                                     <li>
-
-                                        <a href="{{ route('logout') }}"
-
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                             <i class="fa fa-user" aria-hidden="true"></i>
+                                        <a href="{{ route('profile.index') }}">
+                                            <i class="fa fa-user" aria-hidden="true"></i>
                                             Mi perfil
                                         </a>
+
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
