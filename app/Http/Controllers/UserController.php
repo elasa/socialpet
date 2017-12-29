@@ -15,9 +15,9 @@ class UserController extends Controller
     //     $this->middleware('admin');
     // }
 
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::orderBy('id','DESC')->paginate(10);
+        $users = User::search($request->name)->orderBy('id','DESC')->paginate(10);
         return view('admin.user.index',compact('users'));
     }
 

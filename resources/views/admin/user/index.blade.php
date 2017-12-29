@@ -3,6 +3,14 @@
 @section('content')
 
 	<h3>Usuarios</h3>
+	<form action="{{ route('users.index') }}" method="get">
+		<div class="form-group">
+			<input type="text" name="name" placeholder="Buscar por Nombre" class="form-control">
+		</div>
+		<div class="form-group">
+			<input type="submit" value="Buscar" class="form-control btn btn-info">
+		</div>
+	</form>
 	<a href="{{ route('users.create') }}" class="btn btn-success">Nuevo</a><br><br>
 			<table class="table table-hover table-responsive table-striped">
 				<thead>

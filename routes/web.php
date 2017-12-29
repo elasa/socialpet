@@ -36,11 +36,17 @@ Route::middleware(['user'])->group(function () {
 	Route::get('/wall', 'WallController@index');
 	Route::get('/wall/{id}', 'WallController@publication')->name('wall.id');
 	Route::post('/main', 'MainController@store')->name('main.store');
+	Route::get('/main/{publication}', 'MainController@destroy')->name('main.destroy');
+	Route::get('/main/{publication}/edit', 'MainController@edit')->name('main.edit');
+	Route::put('/main/{publication}', 'MainController@update')->name('main.update');
 	Route::resource('/publications', 'PublicationController');
-	Route::resource('/comments', 'CommentController');
+
 	Route::resource('/profile', 'ProfileController');
 	Route::resource('/', 'MainController');
-//Route::post('comments/{comment}', 'CommentController@show')->name('comments.show');
+
+	Route::post('/comment', 'CommentController@store')->name('comments.store');
+	Route::get('/comment/{comment}', 'CommentController@show')->name('comments.show');
+	Route::delete('/comment/{comment}', 'CommentController@destroy')->name('comments.destroy');
 
 });
 

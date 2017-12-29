@@ -6,7 +6,11 @@
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <img width="32px" height="32px" src="{{ Storage::url($publication->avatar) }}" alt="">
+                    @if (starts_with($publication->avatar, 'http://') || starts_with($publication->avatar, 'https://'))   
+                        <img width="32px" height="32px" src="{{ $publication->avatar }}">
+                    @else
+                        <img width="32px" height="32px" src="{{ Storage::url($publication->avatar) }}">
+                    @endif
                     {{ $publication->name }}
                 </div><br>
                 <div class="panel-body">
@@ -36,32 +40,52 @@
                                 <textarea name="message" cols="" rows="3" class="form-control" placeholder="Escribe un comentario aqui...">{{ old('message') }}</textarea>
                             </div>
                             <button type="submit" class="btn btn-primary">Comentar</button>
+                            <a href="/"><button type="button" class="btn btn-info">Volver</button></a>
                         </form>
                         <br>
                         @foreach ($comments as  $comment)
                             <div class="list-group">
                                 <div class="list-group-item "> 
                                     <h5 class="list-group-item-heading">
-                                        <img width="32px" height="32px" src="{{ Storage::url($comment->avatar) }}" alt="">
-                                        {{ $comment->name }} 
+                                        @if ($comment->user_id == Auth::user()->id)
+                                            @if (starts_with($comment->avatar, 'http://') || starts_with($comment->avatar, 'https://'))   
+                                                <img width="32px" height="32px" src="{{ $comment->avatar }}">
+                                            @else
+                                                <img width="32px" height="32px" src="{{ Storage::url($comment->avatar) }}">
+                                            @endif
+                                        @else
+                                            @if (starts_with($comment->avatar, 'http://') || starts_with($comment->avatar, 'https://'))   
+                                                <img width="32px" height="32px" src="{{ $comment->avatar }}">
+                                            @else
+                                                <img width="32px" height="32px" src="{{ Storage::url($comment->avatar) }}">
+                                            @endif
+                                        @endif
+                                        {{ $comment->name }}
                                     </h5>
-                                    <p class="list-group-item-text">{{ $comment->message }}</p>
-                                    <p class="list-group-item-text">
-                                    <p class="text-info">{{ $comment->created_at->diffForHumans() }}</p>
-                                    
-                                    {{-- {{ App\Wall::comments_count($post->id) }} --}}
-                                    @if ($comment->user_id==$user_id)
-                                        {{-- <a href="{{ route('comments.destroy', $comment->id) }}">eliminar</a> --}}
-                                        <form action="{{ route('comments.destroy', $comment->id) }}" method="post"" class="float-right">
+                                    {{ $comment->message }}
+                                    <p class="text-gray-dark"><br><em><font size="2">{{ $comment->created_at->diffForHumans() }}</font></em></p>
+                                    <p class="list-group-item-text pull-right">
+                                    @if ($comment->user_id == Auth::user()->id)
+                                        <form action="{{ route('comments.destroy', $comment->id) }}" method="post">
                                             {{ csrf_field() }}
                                             {{ method_field('delete') }}
-                                            <button class="btn btn-link" role="link" type="submit">eliminar</button>
-                                            {{-- <input type="submit" value="Eliminar" class="btn btn-danger btn-sm"> --}}
+                                            <button class="btn btn-link" role="link" type="submit">
+                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                            </button>
                                         </form>
                                     @endif
+                                    </p>
                                 </div>
                             </div>
+                            {{-- @if ($comment->user_id==$user_id)
+                            <form action="{{ route('comments.destroy', $comment->id) }}" method="post"" class="float-right">
+                                {{ csrf_field() }}
+                                {{ method_field('delete') }}
+                                <button class="btn btn-link" role="link" type="submit">eliminar</button>
+                            </form>
+                            @endif --}}
                         @endforeach
+                        {{ $comments->render() }}
                     </div>
                 </div>
             </div>

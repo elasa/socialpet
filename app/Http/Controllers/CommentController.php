@@ -22,12 +22,6 @@ class CommentController extends Controller
     }
 
 
-    public function create()
-    {
-
-    }
-
-
     public function store(Request $request)
     {
 
@@ -41,10 +35,11 @@ class CommentController extends Controller
         return redirect()->back();
     }
 
-    public function show($id)
+    public function show($comments)
     {
+        
         $user_id = Auth::id();
-        $publication_id = $id;
+        $publication_id = $comments;
 
         $publication = User::where('publications.id',$publication_id)
             ->join('walls','walls.user_id','=','users.id')
@@ -54,11 +49,11 @@ class CommentController extends Controller
 
         /*select `users`.`id`, `users`.`name`,`publications`.`message` from `users` inner join `walls` on `walls`.`user_id` = `users`.`id` inner join `publications` on `publications`.`wall_id` = walls.id*/
 
-        $comments = User::orderBy('comments.id','DESC')->where('publication_id',$publication_id)
+        $comments = User::orderBy('comments.id','ASC')->where('publication_id',$publication_id)
             ->join('comments', 'comments.user_id', '=', 'users.id')
             ->join('publications', 'publications.id', '=', 'comments.publication_id')
             ->select('users.id','users.name','users.avatar','comments.id','comments.user_id','comments.message', 'comments.created_at')
-            ->get();
+            ->paginate(10);
 
             /*
             select `users`.`id`, `users`.`name`,`comments`.`message` from `users` inner join `comments` on `comments`.`user_id` = `users`.`id` inner join `publications` on `publications`.`id` = `comments`.`publication_id`
@@ -71,19 +66,10 @@ class CommentController extends Controller
     }
 
 
-    public function edit($id)
-    {
-        //
-    }
-
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
     public function destroy(Comment $comment)
     {
         $comment->delete();
+
         return back();        
     }
 }
