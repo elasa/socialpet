@@ -26,4 +26,9 @@ class Publication extends Model
 
     	return $this->belongsTo(Wall::class);
     }
+
+    public function likes(){
+        
+        return $this->hasMany(Like::class);
+    }
 }

@@ -12,7 +12,6 @@
                     @else
                         <img width="32px" height="32px" src="{{ Storage::url(Auth::user()->avatar) }}">
                     @endif
-
                     <b>{{ Auth::user()->name }}</b>
                     <div class="panel-body">
                         @if (session('status'))
@@ -42,8 +41,18 @@
                                             @endif 
                                             {{ $post->name }}
                                             <p class="list-group-item-text"><br>{{ $post->message }}</p>
-                                            <p class="text-gray-dark"><br><em><font size="2">{{ $post->created_at->diffForHumans() }}</font></em></p>      
-                                            <a href="{{ route('comments.show', $post->id ) }}"> 
+                                            <p class="text-gray-dark"><br><em><font size="2">{{ $post->created_at->diffForHumans() }}</font></em></p>   
+
+                                            <a href="{{ route('likes', ['user' => Auth::user()->id, 'publication' => $post->id]) }}">
+                                                @if (App\Like::likes_count($post->id)>0)
+                                                    {{ App\Like::likes_count($post->id) }}
+                                                    <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                                                @else
+                                                    <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                                                @endif
+                                            </a>&nbsp;&nbsp;  
+
+                                            <a href="{{ route('comments.show', $post->id) }}"> 
                                                 @if (App\Wall::comments_count($post->id) == 0)
                                                     comentar <i class="fa fa-commenting-o" aria-hidden="true"></i>
                                                 @elseif(App\Wall::comments_count($post->id) == 1)
@@ -51,6 +60,7 @@
                                                 @else
                                                     {{ App\Wall::comments_count($post->id) }} comentarios    
                                                 @endif
+
                                                 @if (Auth::user()->id == $post->user_id)
                                                     <a class="pull-right" href="{{ route('main.destroy', $post->id) }}">
                                                         <i class="fa fa-trash" aria-hidden="true"></i>
@@ -76,14 +86,14 @@
                 </div>
                 <div class="panel panel-body">
                     <ul class="media-list">
-                        <li class="media">
-                            <div class="pull-left">
+                        <li class="media text-center">
+                            @if ($pets->isEmpty())
+                                Inscribe a tu mascota <a href="/pets/create">aquí</a>
+                            @else
                                 @foreach ($pets as $pet)
-                                <a href="#">
                                     <img width="98" height="98" src="{{ Storage::url($pet->photo) }}">
-                                </a>
                                 @endforeach
-                            </div>
+                            @endif
                         </li>
                     </ul>
                 </div>
