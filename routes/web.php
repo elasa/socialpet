@@ -48,7 +48,7 @@ Route::middleware(['user'])->group(function () {
 	Route::get('/comment/{comment}', 'CommentController@show')->name('comments.show');
 	Route::delete('/comment/{comment}', 'CommentController@destroy')->name('comments.destroy');
 
-	Route::get('/likes/{user}/{publication}','LikeController@like')->name('likes');
+	Route::get('/likes/{user}','LikeController@like')->name('likes');
 
 });
 

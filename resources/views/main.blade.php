@@ -42,16 +42,18 @@
                                             {{ $post->name }}
                                             <p class="list-group-item-text"><br>{{ $post->message }}</p>
                                             <p class="text-gray-dark"><br><em><font size="2">{{ $post->created_at->diffForHumans() }}</font></em></p>   
-
-                                            <a href="{{ route('likes', ['user' => Auth::user()->id, 'publication' => $post->id]) }}">
+                                            
+                                            
+                                            <a class="like" href="{{ route('likes', ['publication' => $post->id]) }}">
+                                                
                                                 @if (App\Like::likes_count($post->id)>0)
                                                     {{ App\Like::likes_count($post->id) }}
-                                                    <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
                                                 @else
                                                     <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
                                                 @endif
+                                            
                                             </a>&nbsp;&nbsp;  
-
+                                            
                                             <a href="{{ route('comments.show', $post->id) }}"> 
                                                 @if (App\Wall::comments_count($post->id) == 0)
                                                     comentar <i class="fa fa-commenting-o" aria-hidden="true"></i>
@@ -101,3 +103,11 @@
         </div>
     </div>
 @endsection
+
+@section('script')
+
+<script src="{{asset('js/funciones.js')}}" type="text/javascript"></script>
+
+@endsection
+
+
