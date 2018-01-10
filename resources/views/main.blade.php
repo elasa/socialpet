@@ -32,6 +32,7 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading">Lo que publican mis amigos</div>
                                 <div class="panel-body">
+
                                     @foreach ($posts as $post)
                                         <a href="#" class="list-group-item ">
                                             @if (starts_with($post->avatar, 'http://') || starts_with($post->avatar, 'https://'))   
@@ -41,19 +42,23 @@
                                             @endif 
                                             {{ $post->name }}
                                             <p class="list-group-item-text"><br>{{ $post->message }}</p>
-                                            <p class="text-gray-dark"><br><em><font size="2">{{ $post->created_at->diffForHumans() }}</font></em></p>   
+                                            <p class="text-gray-dark"><br><em><font size="2">{{ $post->created_at->diffForHumans() }}</font></em></p>
                                             
-                                            
-                                            <a class="like" href="{{ route('likes', ['publication' => $post->id]) }}">
-                                                
-                                                @if (App\Like::likes_count($post->id)>0)
-                                                    {{ App\Like::likes_count($post->id) }}
-                                                @else
-                                                    <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
-                                                @endif
-                                            
-                                            </a>&nbsp;&nbsp;  
-                                            
+                                            @php
+                                                $token = App\Like::did_you_like_it(Auth::user()->id,$post->id);
+                                            @endphp
+
+                                            @if(App\Like::likes_count($post->id) >= 0 && $token == null || $token->like == 0)
+                                                <a class="like" id="{{ $post->id }}" href="{{ route('likes', ['publication' => $post->id]) }}">
+                                                    Me gusta
+                                                </a>
+                                            @elseif(App\Like::likes_count($post->id) > 0 && $token->like == 1)
+                                                <a class="dislike" id="{{ $post->id }}" href="{{ route('likes', ['publication' => $post->id]) }}">
+                                                    No me gusta
+                                                </a>
+                                            @endif
+                                                    
+                                            &nbsp;&nbsp;
                                             <a href="{{ route('comments.show', $post->id) }}"> 
                                                 @if (App\Wall::comments_count($post->id) == 0)
                                                     comentar <i class="fa fa-commenting-o" aria-hidden="true"></i>

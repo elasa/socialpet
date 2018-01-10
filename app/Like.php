@@ -22,4 +22,11 @@ class Like extends Model
 
         return Like::where('publication_id',$id)->get()->count();
     }
+
+    public static function did_you_like_it($user,$publication){
+            
+
+        return Like::select('like')->where('user_id',$user)->where('publication_id',$publication)->first();
+            
+    }
 }
