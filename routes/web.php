@@ -15,6 +15,12 @@
 // 	return view('welcome');
 // });
 
+Route::get('/welcome', 'SaludoController@index');
+
+Route::get('api/roles', function(){
+    return App\Role::all();
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -55,6 +61,7 @@ Route::middleware(['user'])->group(function () {
 // Routes login social network
 Route::get('login/{provider}', 'LoginController@redirectToProvider');
 Route::get('login/{provider}/callback', 'LoginController@handleProviderCallback');
+
 
 
 

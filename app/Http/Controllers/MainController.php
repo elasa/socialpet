@@ -17,7 +17,7 @@ class MainController extends Controller
 
         $posts = Publication::join('walls', 'walls.id', '=', 'publications.wall_id')
             ->join('users', 'users.id', '=', 'walls.user_id')
-            ->select('users.id','users.name','users.avatar','publications.id','publications.message', 'publications.created_at','walls.user_id')
+            ->select('users.id','users.name','users.avatar','publications.id','publications.message','publications.image','publications.like', 'publications.created_at','walls.user_id')
             ->orderBy('publications.id','DESC')->paginate(10);
         /*
             SELECT users.name, publications.id, publications.message 
@@ -45,6 +45,7 @@ class MainController extends Controller
         $publication = new Publication;
         $publication->wall_id = $wall[0]->user_id; 
         $publication->message = $request->post('message');
+        $publication->image = ( $request->file('image')==null ) ? "has not image" : $request->file('image')->store('public');
         $publication->published = date('Y-m-d H:i:s');
         $publication->is_public = "SI";
         $publication->save();
@@ -68,6 +69,14 @@ class MainController extends Controller
     public function update(Publication $publication, Request $request)
     {
         $publication->message = $request->post('message');
+        if(!$request->file('image')){
+
+            $publication->image;
+        }
+        else{
+            $publication->image = ( $request->file('image')==null ) ? "has not image" : $request->file('image')->store('public');    
+
+        }
         $publication->save();
 
         session()->flash('message','Publicación mdificada correctamente!');

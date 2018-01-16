@@ -15,10 +15,16 @@ $(document).ready(function(){
 				},
 				success: function(data){
 					if(data.token==0){
-						like.text('No me gusta');
+						if(data.count_like == 0)
+							like.html("<i class='fa fa-thumbs-up' aria-hidden='true'></i> Me gusta");
+						else
+							like.html("<i class='fa fa-thumbs-up' aria-hidden='true'></i> Me gusta"+" "+data.count_like);
 					}
 					else{
-						like.text('Me gusta');
+						if(data.count_like == 0)
+							like.html("<i class='fa fa-thumbs-up' aria-hidden='true'></i> Me gusta");
+						else
+							like.html("<i class='fa fa-thumbs-o-up' aria-hidden='true'></i> Me gusta"+" "+data.count_like);
 					}
 					console.log(data);
 				}
@@ -40,11 +46,17 @@ $(document).ready(function(){
 				},
 				success: function(data){	
 					if(data.token==1){
-						dislike.text('Me gusta');
+						if(data.count_like == 0)
+							dislike.html("<i class='fa fa-thumbs-o-up' aria-hidden='true'></i> Me gusta");
+						else
+							dislike.html("<i class='fa fa-thumbs-o-up' aria-hidden='true'></i> Me gusta" +" "+data.count_like);
 					}
 					else {
-						dislike.text('No me gusta');
-					}
+						if(data.count_like == 0)
+							dislike.html("<i class='fa fa-thumbs-up' aria-hidden='true'></i> Me gusta");
+						else
+							dislike.html("<i class='fa fa-thumbs-o-up' aria-hidden='true'></i> Me gusta"+" "+data.count_like);
+					}	
 					console.log(data);
 				}
 			});

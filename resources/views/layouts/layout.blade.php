@@ -4,11 +4,17 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <link rel="icon" href="../../../../favicon.ico">
 
     <title>titulo</title>
+      <!-- Styles -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
@@ -25,13 +31,16 @@
   </head>
 
   <body>
-  @include('layouts._menu')
-    <div class="container">
+    @include('layouts._menu')
+    
+      <div class="container">
       
       @include('layouts._errors') {{-- incluye el partial del bucle de erores de forma global --}}
       @include('layouts._messages')
-
-      @yield('content')
+      
+      <div id="app">
+        @yield('content')
+      </div>
 
     </div><!-- /.container -->
 
@@ -46,6 +55,9 @@
     ================================================== -->
     {{-- <script src="{{asset('js/popper.min.js')}}" type="text/javascript"></script> --}}
     <script src="{{asset('js/bootstrap.min.js')}}" type="text/javascript"></script>
+
+        <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}"></script>
     
     @yield('script')
     

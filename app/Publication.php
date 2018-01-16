@@ -9,7 +9,7 @@ class Publication extends Model
 {
 
 	protected $fillable = [
-        'wall_id', 'message','published',
+        'wall_id', 'message','img_post','published','like',
     ];
 
     public function getCreatedAtAttribute($date){
@@ -30,5 +30,10 @@ class Publication extends Model
     public function likes(){
         
         return $this->hasMany(Like::class);
+    }
+
+    public static function likes_count($id){
+
+        return Publication::select('like')->where('id',$id)->get();
     }
 }

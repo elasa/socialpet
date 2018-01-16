@@ -18,6 +18,8 @@ class CreatePublicationsTable extends Migration
             $table->integer('wall_id')->unsigned();
             $table->foreign('wall_id')->references('id')->on('walls')->onDelete('cascade');
             $table->text('message')->nullable();
+            $table->string('image')->nullable();
+            $table->integer('like')->unsigned()->default(0);
             $table->dateTime('published');
             $table->enum('is_public', ['SI', 'NO'])->default('SI')->nullable();
             $table->timestamps();
